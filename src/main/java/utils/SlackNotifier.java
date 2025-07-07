@@ -1,13 +1,17 @@
 package utils;
 
+import com.qa.xstream.utils.CommonUtils;
+
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Properties;
 
 public class SlackNotifier {
     public void sendSlackMessage(String messageText) {
+        Properties prop = CommonUtils.init_prop();
         try {
-            String webhookUrl = "https://hooks.slack.com/services/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";
+            String webhookUrl = prop.getProperty("webhook"); ;
             String payload = "{\"text\": \"" + messageText.replace("\"", "\\\"") + "\"}";
 
             URL url = new URL(webhookUrl);
