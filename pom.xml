@@ -28,5 +28,16 @@
         </dependency>
     </dependencies>
 
+    <repositories>
+        <repository>
+            <id>CorePW</id>
+            <name>CorePW</name>
+            <url>http://nexus.bsbportal.com/nexus/content/repositories/CorePW/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
 
 </project>
