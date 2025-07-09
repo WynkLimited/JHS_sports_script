@@ -11,23 +11,28 @@ public class SlackNotifier {
     public void sendSlackMessage(String messageText) {
         Properties prop = CommonUtils.init_prop();
         try {
-            String webhookUrl = prop.getProperty("webhook"); ;
-            String payload = "{\"text\": \"" + messageText.replace("\"", "\\\"") + "\"}";
+            String webhookUrl = System.getenv("SLACK_WEBHOOK_URL");
+            if (webhookUrl == null || webhookUrl.isEmpty()) {
+                throw new RuntimeException("SLACK_WEBHOOK_URL not set!");
+            }else {
+//            String webhookUrl = prop.getProperty("webhook"); ;
+                String payload = "{\"text\": \"" + messageText.replace("\"", "\\\"") + "\"}";
 
-            URL url = new URL(webhookUrl);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                URL url = new URL(webhookUrl);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-            connection.setRequestMethod("POST");
-            connection.setRequestProperty("Content-Type", "application/json");
-            connection.setDoOutput(true);
+                connection.setRequestMethod("POST");
+                connection.setRequestProperty("Content-Type", "application/json");
+                connection.setDoOutput(true);
 
-            try (OutputStream os = connection.getOutputStream()) {
-                byte[] input = payload.getBytes("utf-8");
-                os.write(input, 0, input.length);
+                try (OutputStream os = connection.getOutputStream()) {
+                    byte[] input = payload.getBytes("utf-8");
+                    os.write(input, 0, input.length);
+                }
+
+                int responseCode = connection.getResponseCode();
+                System.out.println("Slack response code: " + responseCode);
             }
-
-            int responseCode = connection.getResponseCode();
-            System.out.println("Slack response code: " + responseCode);
 
         } catch (Exception e) {
             e.printStackTrace();
