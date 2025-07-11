@@ -21,6 +21,11 @@
             <version>1.0.1</version>
         </dependency>
 
+<!--        <dependency>-->
+<!--            <groupId>in.wynk</groupId>-->
+<!--            <artifactId>CorePW</artifactId>-->
+<!--            <version>1.0.1</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
@@ -32,7 +37,7 @@
         <repository>
             <id>CorePW</id>
             <name>CorePW</name>
-            <url>http://nexus.bsbportal.com/nexus/content/repositories/CorePW/</url>
+            <url>http://nexus-bsb.wynk.in/nexus/content/repositories/CorePW/</url>
             <snapshots>
                 <enabled>true</enabled>
                 <updatePolicy>always</updatePolicy>
