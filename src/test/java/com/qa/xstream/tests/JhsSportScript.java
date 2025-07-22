@@ -97,7 +97,7 @@ public class JhsSportScript extends BaseTest {
         if (!expiredUrls.isEmpty()) {
             File excel = writeUrlsToExcel(expiredUrls, "expired-sports-urls.xlsx");
             notifier.sendSlackMessage("Expired List of JHS live sports content\n" + expiredUrl);
-            notifier.sendSlackMessage(excel.getAbsolutePath());
+//            notifier.sendSlackMessage(excel.getAbsolutePath());
         }else{
 //            System.out.println("No expired JHS live content present");
             notifier.sendSlackMessage("No expired JHS live content present");
