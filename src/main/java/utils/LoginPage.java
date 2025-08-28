@@ -22,11 +22,12 @@ public class LoginPage {
     private static String otpThird_WE="//input[@id='otp-third-letter']";
     private static String otpFourth_WE="//input[@id='otp-fourth-letter']";
     private static String verify_Btn ="//button[@id='otp-verify-btn']";
-    private static String profileText_WE="//div[@class='profile-text' and text()='Profile']";
+    private static String profileText_WE="//span[text()='Profile']";
     private String homeTab_Btn="//a[@aria-label='Home']";
-    private static String login_Btn="//div[@class='profile-text']";
+    private static String login_Btn="a#nav-Profile";
     private String firstRailFirst_WE= "//*[@data-id='rail-id-5']//section[@id='atm_potrait-tile-1']";
     private String cdpLogin_Btn="//button[contains(@id,'play')]";
+    private String leftNavigationBar = "nav.left-nav-bar";
 
 //    ProfilePage profilePage;
  GenericFunctions generic;
@@ -153,9 +154,10 @@ public class LoginPage {
      * @return true if login is successful, false otherwise.
      */
     public boolean isLoginSuccessful(String number, String otp) {
-//        if(generic.isVisible(page, "xpath", login_Btn)) generic.click(page, "xpath",login_Btn);
+//        if(generic.isVisible(page, "css selector", login_Btn)) generic.click(page, "xpath",login_Btn);
         enterMobileNumber(number);
         enterOtp(otp);
+        generic.hover(page,"css selector", leftNavigationBar );
         generic.waitForVisibility(page, profileText_WE, 5000);
         return generic.isVisible(page,"xpath", profileText_WE);
     }
