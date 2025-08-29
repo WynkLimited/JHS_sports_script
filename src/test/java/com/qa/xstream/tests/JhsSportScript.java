@@ -51,6 +51,7 @@ public class JhsSportScript extends BaseTest {
         String expiredUrl = "";
 
         getPage().navigate("https://www.airtelxstream.in/jiohotstar-live-sports/list/axaut_vvic37081726728184444?pa=LANDSCAPE_169");
+        getPage().mouse().move(0, 0);
         getPage().waitForLoadState(LoadState.NETWORKIDLE);
         slowScrollToBottom(getPage());
 
