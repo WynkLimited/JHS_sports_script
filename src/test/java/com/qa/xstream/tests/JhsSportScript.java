@@ -114,7 +114,7 @@ public class JhsSportScript extends BaseTest {
         }
 
         if(!testContentNames.isEmpty()){
-            notifier.sendSlackMessage("JHS Sports Content that has test keyword)\n" + testContentNames);
+            notifier.sendSlackMessage("JHS Sports Content that has test keyword\n" + testContentNames);
 //            System.out.println("JHS Sports Content that has test keyword)\n" + testContentNames);
         }
 
