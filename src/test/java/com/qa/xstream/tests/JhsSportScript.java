@@ -31,10 +31,12 @@ public class JhsSportScript extends BaseTest {
     GenericFunctions generic;
     SlackNotifier notifier;
 
-    private String tiles = "//li[contains(@class,\"custom-portrait-relative-holder\")]//a";
+    private String tiles = "//li[contains(@class,'custom-portrait-relative-holder')]//a";
+    private String tilesName = "//li[contains(@class,'custom-portrait-relative-holder')]//section";
     private String singleTile = "//section[@id='atm_potrait-tile-%d']";
     private String watchNowBtn = "button#play-content-button";
     private String railName = "//section[@name='Jiohotstar Live Sports']";
+    private String tileImage = "//li[contains(@class,'custom-portrait-relative-holder')]//a//img[contains(@class,'custom-tile-image ')]";
 
     @BeforeMethod
     public void beforeMethod() {
@@ -48,6 +50,7 @@ public class JhsSportScript extends BaseTest {
 
         List<String> expiredUrls = new ArrayList<>();
         List<String> tileUrls = new ArrayList<>();
+        String testContentNames = "";
         String expiredUrl = "";
 
         getPage().navigate("https://www.airtelxstream.in/jiohotstar-live-sports/list/axaut_vvic37081726728184444?pa=LANDSCAPE_169");
@@ -57,11 +60,12 @@ public class JhsSportScript extends BaseTest {
 
         if(!generic.isVisible(getPage(), "xpath", railName)){
             notifier.sendSlackMessage("No JHS Live Sports Content Present");
-            System.out.println("No JHS Live Sports Content Present");
             return;
         }
 
         Locator tilesLocator = generic.locateByXpathOrCss(getPage(), tiles);
+        Locator tilesNameLocator = generic.locateByXpathOrCss(getPage(), tilesName);
+
         int count = tilesLocator.count();
         System.out.println(count);
 
@@ -69,6 +73,11 @@ public class JhsSportScript extends BaseTest {
             String href = tilesLocator.nth(i).getAttribute("href");
             if (href != null && !href.isEmpty()) {
                 tileUrls.add("https://www.airtelxstream.in" + href);
+            }
+
+            String matchName = tilesNameLocator.nth(i).getAttribute("atm-name").toLowerCase();
+            if(matchName.contains("test")){
+                testContentNames += tileUrls.get(i)+"\n";
             }
         }
 
@@ -99,9 +108,14 @@ public class JhsSportScript extends BaseTest {
             File excel = writeUrlsToExcel(expiredUrls, "expired-sports-urls.xlsx");
             notifier.sendSlackMessage("Expired List of JHS live sports content\n" + expiredUrl);
 //            notifier.sendSlackMessage(excel.getAbsolutePath());
+//            System.out.println("Expired List of JHS live sports content\n" + expiredUrl);
         }else{
-//            System.out.println("No expired JHS live content present");
             notifier.sendSlackMessage("No expired JHS live content present");
+        }
+
+        if(!testContentNames.isEmpty()){
+            notifier.sendSlackMessage("JHS Sports Content that has test keyword)\n" + testContentNames);
+//            System.out.println("JHS Sports Content that has test keyword)\n" + testContentNames);
         }
 
     }
