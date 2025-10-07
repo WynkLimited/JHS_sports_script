@@ -76,7 +76,7 @@ public class JhsSportScript extends BaseTest {
             }
 
             String matchName = tilesNameLocator.nth(i).getAttribute("atm-name").toLowerCase();
-            if(matchName.contains("test")){
+            if(matchName.contains("test") || matchName.contains("inhouse") || matchName.contains("config")){
                 testContentNames += tileUrls.get(i)+"\n";
             }
         }
@@ -114,7 +114,7 @@ public class JhsSportScript extends BaseTest {
         }
 
         if(!testContentNames.isEmpty()){
-            notifier.sendSlackMessage("JHS Sports Content that has test keyword\n" + testContentNames);
+            notifier.sendSlackMessage("JHS Sports Content that has test/ inhouse/ config keyword\n" + testContentNames);
 //            System.out.println("JHS Sports Content that has test keyword)\n" + testContentNames);
         }
 
