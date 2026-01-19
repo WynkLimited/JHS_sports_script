@@ -11,11 +11,10 @@ public class SlackNotifier {
     public void sendSlackMessage(String messageText) {
         Properties prop = CommonUtils.init_prop();
         try {
-            String webhookUrl = System.getenv("SLACK_WEBHOOK_URL");
-//            String webhookUrl = prop.getProperty("webhook"); ;
+            String webhookUrl = System.getenv("WEBHOOK_URL");
 
             if (webhookUrl == null || webhookUrl.isEmpty()) {
-                throw new RuntimeException("SLACK_WEBHOOK_URL not set!");
+                throw new RuntimeException("TEAMS_WEBHOOK_URL not set!");
             }else {
                 String payload = "{\"text\": \"" + messageText.replace("\"", "\\\"") + "\"}";
 
